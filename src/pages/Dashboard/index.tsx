@@ -12,46 +12,23 @@ import { spendingCreate } from '../../spending/spendingCreate'
 import { spendingGetAll } from '../../spending/spendingGetAll'
 import { clearSpendingStorage } from '../../spending/spendingDelete'
 
-const validationRules = {
-  taxCode: ['1234', '6789', '1708', '5952'],
-  state: ['RJ', 'SP', 'MG'],
-  supplier: ['Totvs', 'Microsoft']
-};
 
 export function Dashboard() {
-  const [invoice, setInvoice] = useState('')
-  const [taxCode, setTaxCode] = useState('')
-  const [invoiceValue, setInvoiceValue] = useState('')
-  const [state, setState] = useState('')
-  const [supplier, setSupplier] = useState('')
+  const [name, setName] = useState('')
+  const [amount, setAmount] = useState('')
 
   async function handleAddNewSpending() {
-    if(invoice.trim() === '' || taxCode.trim() === '' || invoiceValue === '' || state.trim() === '' || supplier.trim() === ''){
+    if(name.trim() === '' || amount.trim() === ''){
       return Alert.alert('Campos incompletos', 'Favor preencher os campos corretamente.')}
-
-    if (!validationRules.taxCode.includes(taxCode)) {
-      return Alert.alert('Código do imposto', 'Aceita somente os códigos: 1234, 6789, 1708 e 5952')}
-
-    if (!validationRules.state.includes(state.toUpperCase().trim())) {
-      return Alert.alert('Estado', 'Aceita somente os estados: RJ, SP e MG')}
-      
-    if (!validationRules.supplier.includes(supplier.trim())) {
-      return Alert.alert('Fornecedor', 'Aceita somente os fornecedores: Totvs e Microsoft')}
     
       
     const data = {
-      invoice: invoice.trim(),
-      taxCode: taxCode.trim(),
-      invoiceValue: formatAmount(invoiceValue),
-      state: state.toUpperCase().trim(),
-      supplier: supplier.trim()
+      name: name.trim(),
+      amount: formatAmount(amount),
     }
     console.log(data)
-    setInvoice('')
-    setTaxCode('')
-    setInvoiceValue('')
-    setState('')
-    setSupplier('')
+    setName('')
+    setAmount('')
     await spendingCreate(data)
     const result = await spendingGetAll()
     console.log(result)
@@ -64,38 +41,17 @@ export function Dashboard() {
 
       <ScrollView>
         <Input
-          placeholder='Nota Fiscal'
+          placeholder='Nome do produto'
           placeholderTextColor='#363F5F'
-          value={invoice}
-          onChangeText={value => setInvoice(value)}
-        />
-
-        <Input
-          placeholder='Código do Imposto'
-          placeholderTextColor='#363F5F'
-          value={taxCode}
-          onChangeText={value => setTaxCode(value)}
+          value={name}
+          onChangeText={value => setName(value)}
         />
 
         <InputAmount
-          placeholder='Valor da Nota'
+          placeholder='Valor unitário'
           placeholderTextColor='#363F5F'
-          value={invoiceValue}
-          onChangeText={value => setInvoiceValue(value)}
-        />
-
-        <Input
-          placeholder='Estado'
-          placeholderTextColor='#363F5F'
-          value={state}
-          onChangeText={value => setState(value)}
-        />
-
-        <Input
-          placeholder='Fornecedor'
-          placeholderTextColor='#363F5F'
-          value={supplier}
-          onChangeText={value => setSupplier(value)}
+          value={amount}
+          onChangeText={value => setAmount(value)}
         />
       </ScrollView>
 

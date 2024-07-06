@@ -1,8 +1,9 @@
 export type SpendingStorageDTO = {
-  name: string;
-  amount: number;
-  NorthAmount?: number;
-  SouthAmount?: number;
-  SouthEastAmount?: number;
-  NorthEastAmount?: number;
-};
+  invoice: string;
+  taxCode: string;
+  taxValue?: number;
+  invoiceValue: number;
+  totalValue?: number;
+  state: string;
+  supplier: string;
+}

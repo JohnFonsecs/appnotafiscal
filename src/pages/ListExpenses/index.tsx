@@ -32,7 +32,7 @@ export function ListExpenses() {
 
   return (
     <Container>
-      <Header title='Listar Produtos' />
+      <Header title='Listar Notas Fiscais' />
 
       <Transactions>
         <FlatList

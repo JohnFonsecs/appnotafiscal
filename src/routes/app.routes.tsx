@@ -7,10 +7,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import { Dashboard } from "../pages/Dashboard";
 import { ListExpenses } from "../pages/ListExpenses";
+import { Resume } from "../pages/Resume";
 
 type AppRoutes = {
   dashboard: undefined;
   listExpenses: undefined;
+  resume: undefined;
 }
 
 export type AppNavigationRoutesProps =
@@ -60,7 +62,20 @@ export function AppRoutes() {
           )
         }}
       />
-
+      <Screen
+        name='resume'
+        component={Resume}
+        options={{
+          tabBarLabel: 'Resume',
+          tabBarIcon: (({ size, color }) =>
+            <MaterialIcons
+              name='library-books'
+              size={size}
+              color={color}
+            />
+          )
+        }}
+      />
     </Navigator>
   )
 }
